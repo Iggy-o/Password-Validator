@@ -1,4 +1,6 @@
 #Ighoise Odigie
+#One-Day
+#May, 5 2020
 #Youtube: https://www.youtube.com/channel/UCud4cJjtCjEwKpynPz-nNaQ?
 #Github: https://github.com/Iggy-o
 
@@ -8,7 +10,7 @@ attempts = 4
 
 #These variables control the requirements for the password
 ''' 
-Note: Try Changing them 
+Note: Try Changing these settings 
 '''
 lengthRequirement = 8
 numberRequirement = 1
@@ -20,7 +22,6 @@ password_text = "\nPassword -> "
 validPassword_text = "\n\n\n--Password Valid--"
 requirements_text = f"\n\n-{lengthRequirement} characters\n-{numberRequirement} numbers\n-{capitalRequirement} capital letters\n-{specialRequirement} special characters\n--"
 invalidPassword_text = f"\n\n\n--\nYour password must contain the following: {requirements_text}"
-
 passwordConfirmation_text = "Please repeat your password once more to confirm -> "
 passwordConfirmed_text = "\n\n\n--Password Confirmed--"
 passwordDifferent_text = "\n\n\n--Password did not match--"
@@ -118,7 +119,7 @@ elif (valid == True):
   
   #If the user matches the password, they recieve confirmation
   else:
-    print("Your password: " + str(password))
+    print(f"Your password: {password}")
     
     
     
