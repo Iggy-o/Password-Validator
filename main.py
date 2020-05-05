@@ -3,6 +3,7 @@
 #May, 5 2020
 #Youtube: https://www.youtube.com/channel/UCud4cJjtCjEwKpynPz-nNaQ?
 #Github: https://github.com/Iggy-o
+#Preview: https://repl.it/@IghoiseO/Password-Validator
 
 #<!--First Part: The Setup-->
 #This variable controls the number of times the password can be entered
