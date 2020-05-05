@@ -13,16 +13,17 @@ Note: Try Changing them
 lengthRequirement = 8
 numberRequirement = 1
 capitalRequirement = 1
+specialRequirement = 1
 
 #These variables store the user prompts and messages which will be used later
 password_text = "\nPassword -> "
 validPassword_text = "\n\n\n--Password Valid--"
-requirements_text = f"\n\n-{lengthRequirement} characters\n-{numberRequirement} number\n-{capitalRequirement} capital letter\n--"
+requirements_text = f"\n\n-{lengthRequirement} characters\n-{numberRequirement} numbers\n-{capitalRequirement} capital letters\n-{specialRequirement} special characters\n--"
 invalidPassword_text = f"\n\n\n--\nYour password must contain the following: {requirements_text}"
 
 passwordConfirmation_text = "Please repeat your password once more to confirm -> "
 passwordConfirmed_text = "\n\n\n--Password Confirmed--"
-passwordDifferent_text = "\n\n\n--Password did not match, please try again--"
+passwordDifferent_text = "\n\n\n--Password did not match--"
 lockedOut_text = "\n\n\n!!!Too many failed attempts, please try again later!!!"
 
 
@@ -42,10 +43,14 @@ for i in range(attempts):
   
   #This variable becomes True if the password contains a capital letter
   capitalCheck = False
+
+  #This variable becomes True if the password contains a special character
+  specialCheck = False
   
   #Loops through each character in the password in search of numbers or capital letters
   numbers = 0
   capitals = 0
+  specials = 0
   for i in range(len(password)):
     
     #If the number of numbers in the string reaches the requirement, numberCheck becomes True
@@ -54,14 +59,20 @@ for i in range(attempts):
       if (numbers == numberRequirement):
         numberCheck = True
       
-    #If the number of capital letter in the string reaches the requirement, capitalCheck becomes True
+    #If the number of capital letters in the string reaches the requirement, capitalCheck becomes True
     if (password[i].isupper()):
       capitals += 1
       if (capitals == capitalRequirement):
         capitalCheck = True
+    
+    #If the number of special letters in the string reaches the requirement, specialCheck becomes True
+    if (password[i] in '!#$%&()*+-./:;<=>?@[\]^_`{|}~'):
+      specials += 1
+      if (specials == specialRequirement):
+        specialCheck = True
   
   #The requirements are compiled into this variable which will return true or false in the verification process
-  requirements = lengthCheck and numberCheck and capitalCheck
+  requirements = lengthCheck and numberCheck and capitalCheck and specialCheck
   
   #If the password meets the requirments, it is marked as valid and the loop is broken
   if (requirements):
