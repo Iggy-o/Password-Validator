@@ -20,17 +20,21 @@ Note: Try Changing these settings
 lengthRequirement = 8
 numberRequirement = 1
 capitalRequirement = 1
+lowercaseRequirement = 1
 specialRequirement = 1
+
+specialCharacters = '!#$%&()*+-./:;<=>?@[\]^_`{|}~'
+bannedCharacters = ' '
 
 #These variables store the user prompts and messages which will be used later
 password_text = "\nPassword -> "
-validPassword_text = "\n\n\n--Password Valid--"
-requirements_text = f"\n\n-{lengthRequirement} character(s)\n-{numberRequirement} number(s)\n-{capitalRequirement} capital letter(s)\n-{specialRequirement} special character(s)\n--"
-invalidPassword_text = f"\n\n\n--\nYour password must contain the following: {requirements_text}"
+validPassword_text = "\n\n--Password Valid--"
+requirements_text = f"\n-{lengthRequirement} character(s)\n-{numberRequirement} number(s)\n-{capitalRequirement} capital letter(s)\n-{lowercaseRequirement} lowercase letter(s)\n-{specialRequirement} special character(s)"
+invalidPassword_text = f"--\nYour password must contain the following: {requirements_text}\n--"
 passwordConfirmation_text = "Please repeat your password once more to confirm -> "
-passwordConfirmed_text = "\n\n\n--Password Confirmed--"
-passwordDifferent_text = "\n\n\n--Password did not match--"
-lockedOut_text = "\n\n\n!!!Too many failed attempts, please try again later!!!"
+passwordConfirmed_text = "\n\n--Password Confirmed--"
+passwordDifferent_text = "\n\n--Password did not match--"
+lockedOut_text = "\n!!!Too many failed attempts, please try again later!!!"
 
 
 
@@ -51,11 +55,18 @@ for i in range(attempts):
   capitalCheck = False
 
   #This variable becomes True if the password contains a special character
+  lowerCheck = False
+
+  #This variable becomes True if the password contains a special character
   specialCheck = False
   
+  #This variable becomes False if the password contains a banned character
+  allowed = True
+
   #Loops through each character in the password in search of numbers or capital letters
   numbers = 0
   capitals = 0
+  lowercase = 0
   specials = 0
   for i in range(len(password)):
     
@@ -71,14 +82,24 @@ for i in range(attempts):
       if (capitals == capitalRequirement):
         capitalCheck = True
     
+    #If the number of lowercase letters in the string reaches the requirement, lowerCheck becomes True
+    if (password[i].islower()):
+      lowercase += 1
+      if (lowercase == lowercaseRequirement):
+        lowerCheck = True
+    
     #If the number of special letters in the string reaches the requirement, specialCheck becomes True
-    if (password[i] in '!#$%&()*+-./:;<=>?@[\]^_`{|}~'):
+    if (password[i] in specialCharacters):
       specials += 1
       if (specials == specialRequirement):
         specialCheck = True
+
+    #If their are any banned characters, allowed becomes False
+    if (password[i] in bannedCharacters):
+      allowed = False
   
   #The requirements are compiled into this variable which will return true or false in the verification process
-  requirements = lengthCheck and numberCheck and capitalCheck and specialCheck
+  requirements = lengthCheck and numberCheck and capitalCheck and lowerCheck and specialCheck and allowed
   
   #If the password meets the requirments, it is marked as valid and the loop is broken
   if (requirements):
