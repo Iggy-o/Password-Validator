@@ -6,6 +6,10 @@
 #Preview: https://repl.it/@IghoiseO/Password-Validator
 
 #<!--First Part: The Setup-->
+#This prints out the program Header
+header = "--Password Validator--"
+print(header)
+
 #This variable controls the number of times the password can be entered
 attempts = 4
 
@@ -21,7 +25,7 @@ specialRequirement = 1
 #These variables store the user prompts and messages which will be used later
 password_text = "\nPassword -> "
 validPassword_text = "\n\n\n--Password Valid--"
-requirements_text = f"\n\n-{lengthRequirement} characters\n-{numberRequirement} numbers\n-{capitalRequirement} capital letters\n-{specialRequirement} special characters\n--"
+requirements_text = f"\n\n-{lengthRequirement} character(s)\n-{numberRequirement} number(s)\n-{capitalRequirement} capital letter(s)\n-{specialRequirement} special character(s)\n--"
 invalidPassword_text = f"\n\n\n--\nYour password must contain the following: {requirements_text}"
 passwordConfirmation_text = "Please repeat your password once more to confirm -> "
 passwordConfirmed_text = "\n\n\n--Password Confirmed--"
