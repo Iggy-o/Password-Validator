@@ -5,7 +5,7 @@
 #Github: https://github.com/Iggy-o
 #Preview: https://repl.it/@IghoiseO/Password-Validator
 
-#<!--First Part: The Setup-->
+#<!--First Part: The Settings-->
 #This prints out the program Header
 header = "--Password Validator--"
 print(header)
@@ -15,7 +15,9 @@ attempts = 4
 
 #These variables control the requirements for the password
 ''' 
-Note: Try Changing these settings 
+Note: -Try modifying these settings to your liking
+      -You can set them to 0 to turn them off
+      -Mess around and Have Fun!!
 '''
 lengthRequirement = 8
 numberRequirement = 1
@@ -29,7 +31,7 @@ bannedCharacters = ' '
 #These variables store the user prompts and messages which will be used later
 password_text = "\nPassword -> "
 validPassword_text = "\n\n--Password Valid--"
-requirements_text = f"\n-{lengthRequirement} character(s)\n-{numberRequirement} number(s)\n-{capitalRequirement} capital letter(s)\n-{lowercaseRequirement} lowercase letter(s)\n-{specialRequirement} special character(s)"
+requirements_text = f"\n-{lengthRequirement} or more character(s)\n-{numberRequirement} number(s)\n-{capitalRequirement} capital letter(s)\n-{lowercaseRequirement} lowercase letter(s)\n-{specialRequirement} special character(s)\n-No prohibited characters (Ex. Spaces)"
 invalidPassword_text = f"--\nYour password must contain the following: {requirements_text}\n--"
 passwordConfirmation_text = "Please repeat your password once more to confirm -> "
 passwordConfirmed_text = "\n\n--Password Confirmed--"
@@ -61,7 +63,7 @@ for i in range(attempts):
   specialCheck = False
   
   #This variable becomes False if the password contains a banned character
-  allowed = True
+  bannedCheck = True
 
   #Loops through each character in the password in search of numbers or capital letters
   numbers = 0
@@ -71,35 +73,35 @@ for i in range(attempts):
   for i in range(len(password)):
     
     #If the number of numbers in the string reaches the requirement, numberCheck becomes True
-    if (password[i].isdigit()):
+    if (password[i].isdigit() or numberRequirement == 0):
       numbers += 1
-      if (numbers == numberRequirement):
+      if (numbers >= numberRequirement):
         numberCheck = True
       
     #If the number of capital letters in the string reaches the requirement, capitalCheck becomes True
-    if (password[i].isupper()):
+    if (password[i].isupper() or capitalRequirement == 0):
       capitals += 1
-      if (capitals == capitalRequirement):
+      if (capitals >= capitalRequirement):
         capitalCheck = True
     
     #If the number of lowercase letters in the string reaches the requirement, lowerCheck becomes True
-    if (password[i].islower()):
+    if (password[i].islower() or lowercaseRequirement == 0):
       lowercase += 1
-      if (lowercase == lowercaseRequirement):
+      if (lowercase >= lowercaseRequirement):
         lowerCheck = True
     
     #If the number of special letters in the string reaches the requirement, specialCheck becomes True
-    if (password[i] in specialCharacters):
+    if (password[i] in specialCharacters or specialRequirement == 0):
       specials += 1
-      if (specials == specialRequirement):
+      if (specials >= specialRequirement):
         specialCheck = True
 
-    #If their are any banned characters, allowed becomes False
+    #If their are any banned characters, bannedCheck becomes False
     if (password[i] in bannedCharacters):
-      allowed = False
+      bannedCheck = False
   
   #The requirements are compiled into this variable which will return true or false in the verification process
-  requirements = lengthCheck and numberCheck and capitalCheck and lowerCheck and specialCheck and allowed
+  requirements = lengthCheck and numberCheck and capitalCheck and lowerCheck and specialCheck and bannedCheck
   
   #If the password meets the requirments, it is marked as valid and the loop is broken
   if (requirements):
